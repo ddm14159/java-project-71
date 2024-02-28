@@ -30,14 +30,11 @@ public class App implements Callable<Integer> {
         System.exit(exitCode);
     }
     @Override public Integer call() throws Exception {
-        var json1 = this.getData(this.filepath1);
-        var json2 = this.getData(this.filepath2);
-
-        System.out.println(this.genDiff(json1, json2));
+        System.out.println(genDiff(this.filepath1, this.filepath2));
         return null;
     }
 
-    public Map<String, Object> getData(String filepath) throws Exception {
+    private static Map<String, Object> getData(String filepath) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 
         var path = Paths.get(filepath);
@@ -46,7 +43,9 @@ public class App implements Callable<Integer> {
         return mapper.readValue(fileData, Map.class);
     }
 
-    public String genDiff(Map<String, Object> json1, Map<String, Object> json2) {
+    public static String genDiff(String filepath1, String filepath2) throws Exception {
+        var json1 = getData(filepath1);
+        var json2 = getData(filepath2);
 
         List<String> keys = new ArrayList<>(json1.keySet());
 
