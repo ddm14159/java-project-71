@@ -11,7 +11,7 @@ public class TestApp {
     void testMain() throws Exception {
         var filepath1 = "src/test/resources/file1.json";
         var filepath2 = "src/test/resources/file2.json";
-        var filepathResult = "/data/hexlet/java-project-71/app/src/test/resources/result";
+        var filepathResult = "src/test/resources/result";
 
         var path = Paths.get(filepathResult);
         var result = Files.readString(path);
