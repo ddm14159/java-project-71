@@ -21,8 +21,8 @@ public class App implements Callable<Integer> {
 
     @Option(names = {"-f", "--format"},
             arity = "1",
-            defaultValue = "stylish",
-            description = "output format [default: stylish]"
+            defaultValue = Formatter.FORMAT_STYLISH,
+            description = "output format [default: " + Formatter.FORMAT_STYLISH + "]"
     )
     String format;
 

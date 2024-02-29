@@ -1,5 +1,7 @@
 package hexlet.code.formattes;
 
+import hexlet.code.Differ;
+
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ public class StylishFormatter {
     private static final String ADDED_INDENTATION = "  + ";
     private static final String REMOVED_INDENTATION = "  - ";
     private static final String UNCHANGED_INDENTATION = "    ";
+    private static final String NEW_LINE = "\n";
 
     public static String get(List<Map<String, Object>> data) {
         var result = new StringBuilder();
@@ -14,24 +17,24 @@ public class StylishFormatter {
         result.append("{");
 
         for (var item: data) {
-            var key = item.get("key");
-            var type = item.get("type");
-            var value = item.get("value");
-            var newValue = item.getOrDefault("newValue", null);
+            var key = item.get(Differ.INDEX_KEY);
+            var type = item.get(Differ.INDEX_TYPE);
+            var value = item.get(Differ.INDEX_VALUE);
+            var newValue = item.getOrDefault(Differ.INDEX_NEW_VALUE, null);
 
             switch (type.toString()) {
-                case "added":
-                    result.append("\n").append(ADDED_INDENTATION).append(key).append(": ").append(value);
+                case Differ.STATUS_ADDED:
+                    result.append(NEW_LINE).append(ADDED_INDENTATION).append(key).append(": ").append(value);
                     break;
-                case "removed":
-                    result.append("\n").append(REMOVED_INDENTATION).append(key).append(": ").append(value);
+                case Differ.STATUS_REMOVED:
+                    result.append(NEW_LINE).append(REMOVED_INDENTATION).append(key).append(": ").append(value);
                     break;
-                case "changed":
-                    result.append("\n").append(REMOVED_INDENTATION).append(key).append(": ").append(value);
-                    result.append("\n").append(ADDED_INDENTATION).append(key).append(": ").append(newValue);
+                case Differ.STATUS_CHANGED:
+                    result.append(NEW_LINE).append(REMOVED_INDENTATION).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(ADDED_INDENTATION).append(key).append(": ").append(newValue);
                     break;
                 default:
-                    result.append("\n").append(UNCHANGED_INDENTATION).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(UNCHANGED_INDENTATION).append(key).append(": ").append(value);
             }
         }
 
