@@ -1,6 +1,11 @@
 package hexlet.code;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Differ {
     private static List<Map<String, Object>> getDiffObject(String filepath1, String filepath2) throws Exception {
