@@ -11,3 +11,6 @@ https://imgur.com/a/GdqjC3p
 
 #### Nested comparison
 https://imgur.com/a/hmvJvCq
+
+#### Plain format
+https://imgur.com/a/dDjCxpB
