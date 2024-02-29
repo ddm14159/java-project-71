@@ -8,3 +8,6 @@ https://imgur.com/a/dycTSPf
 
 #### Two YML files comparison
 https://imgur.com/a/GdqjC3p
+
+#### Nested comparison
+https://imgur.com/a/hmvJvCq
