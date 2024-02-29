@@ -19,6 +19,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.1")
     testImplementation("org.assertj:assertj-core:3.24.2")
+    implementation("commons-io:commons-io:2.15.1")
 }
 
 tasks.test {

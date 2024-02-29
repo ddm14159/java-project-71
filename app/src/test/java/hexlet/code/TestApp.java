@@ -8,15 +8,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestApp {
     @Test
-    void testMain() throws Exception {
-        var filepath1 = "src/test/resources/file1.json";
-        var filepath2 = "src/test/resources/file2.json";
-        var filepathResult = "src/test/resources/result";
+    void testDiff() throws Exception {
+        testFileDiff("src/test/resources/file1.json", "src/test/resources/file2.json");
+        testFileDiff("src/test/resources/file1.yml", "src/test/resources/file2.yml");
+    }
 
-        var path = Paths.get(filepathResult);
-        var result = Files.readString(path);
-
-        String actual = App.genDiff(filepath1, filepath2);
+    private void testFileDiff(String filepath1, String filepath2) throws Exception {
+        var resultPath = Paths.get("src/test/resources/result");
+        var result = Files.readString(resultPath);
+        var actual = Differ.genDiff(filepath1, filepath2);
 
         assertThat(actual).isEqualTo(result);
     }
