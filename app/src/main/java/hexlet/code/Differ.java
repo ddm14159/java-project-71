@@ -74,13 +74,13 @@ public class Differ {
         return result;
     }
 
-    public static String genDiff(String filepath1, String filepath2) throws Exception {
+    public static String generate(String filepath1, String filepath2) throws Exception {
         var difference = getDiffObject(filepath1, filepath2);
         var format = Formatter.FORMAT_STYLISH;
         return Formatter.format(difference, format);
     }
 
-    public static String genDiff(String filepath1, String filepath2, String format) throws Exception {
+    public static String generate(String filepath1, String filepath2, String format) throws Exception {
         var difference = getDiffObject(filepath1, filepath2);
         return Formatter.format(difference, format);
     }

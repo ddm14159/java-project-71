@@ -44,7 +44,7 @@ public class TestApp {
     private void testDiff(String filepath1, String filepath2, String format, String resultFilePath) throws Exception {
         var resultPath = Paths.get(resultFilePath);
         var result = Files.readString(resultPath);
-        var actual = Differ.genDiff(filepath1, filepath2, format);
+        var actual = Differ.generate(filepath1, filepath2, format);
 
         assertThat(actual).isEqualTo(result);
     }
