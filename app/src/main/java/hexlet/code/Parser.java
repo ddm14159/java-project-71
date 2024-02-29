@@ -27,7 +27,7 @@ public class Parser {
 
         var fileData = Files.readString(path);
 
-        return mapper.readValue(fileData, new TypeReference<>() {});
+        return mapper.readValue(fileData, new TypeReference<>() { });
     }
 
     private static ObjectMapper getMapper(String extension) throws Exception {

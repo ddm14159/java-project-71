@@ -1,16 +1,9 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import picocli.CommandLine;
 import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 
