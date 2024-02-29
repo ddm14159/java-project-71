@@ -31,7 +31,7 @@ public class App implements Callable<Integer> {
         System.exit(exitCode);
     }
     @Override public Integer call() throws Exception {
-        System.out.println(Differ.genDiff(this.filepath1, this.filepath2));
+        System.out.println(Differ.genDiff(this.filepath1, this.filepath2, this.format));
         return null;
     }
 }

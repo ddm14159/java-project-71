@@ -1,11 +1,9 @@
 package hexlet.code;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Differ {
-    public static String genDiff(String filepath1, String filepath2) throws Exception {
+    private static List<Map<String, Object>> getDiffObject(String filepath1, String filepath2) throws Exception {
         var data1 = Parser.parse(filepath1);
         var data2 = Parser.parse(filepath2);
 
@@ -19,31 +17,61 @@ public class Differ {
 
         Collections.sort(keys);
 
-        var result = new StringBuilder();
-        result.append("{");
+        var result = new ArrayList<Map<String, Object>>();
 
         for (String key : keys) {
             if (data1.containsKey(key) && !data2.containsKey(key)) {
-                result.append("\n").append("  - ").append(key).append(": ").append(data1.get(key));
+                result.add(Map.of(
+                        "key", key,
+                        "type", "removed",
+                        "value", data1.get(key)
+                ));
                 continue;
             }
 
             if (!data1.containsKey(key) && data2.containsKey(key)) {
-                result.append("\n").append("  + ").append(key).append(": ").append(data2.get(key));
+                result.add(Map.of(
+                        "key", key,
+                        "type", "added",
+                        "value", data2.get(key)
+                ));
+                continue;
+            }
+            var value1 = stringify(data1.get(key));
+            var value2 = stringify(data2.get(key));
+
+            if (data1.containsKey(key) && data2.containsKey(key) && !Objects.deepEquals(value1, value2)) {
+                result.add(Map.of(
+                        "key", key,
+                        "type", "changed",
+                        "value", value1,
+                        "newValue", value2
+                ));
                 continue;
             }
 
-            if (data1.containsKey(key) && data2.containsKey(key) && !data1.get(key).equals(data2.get(key))) {
-                result.append("\n").append("  - ").append(key).append(": ").append(data1.get(key));
-                result.append("\n").append("  + ").append(key).append(": ").append(data2.get(key));
-                continue;
-            }
-
-            result.append("\n").append("    ").append(key).append(": ").append(data1.get(key));
+            result.add(Map.of(
+                    "key", key,
+                    "type", "unchanged",
+                    "value", data1.get(key)
+            ));
         }
 
-        result.append("\n}");
+        return result;
+    }
 
-        return result.toString();
+    public static String genDiff(String filepath1, String filepath2) throws Exception {
+        var difference = getDiffObject(filepath1, filepath2);
+        var format = "stylish";
+        return Formatter.format(difference, format);
+    }
+
+    public static String genDiff(String filepath1, String filepath2, String format) throws Exception {
+        var difference = getDiffObject(filepath1, filepath2);
+        return Formatter.format(difference, format);
+    }
+
+    private static String stringify(Object item) {
+        return String.valueOf(item);
     }
 }
