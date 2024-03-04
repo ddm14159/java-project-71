@@ -5,11 +5,11 @@ import java.util.Map;
 import hexlet.code.Differ;
 
 public class PlainFormatter {
-    private static final String UPDATE_MESSAGE = "Property '%s' was updated. From %s to %s";
-    private static final String ADDED_MESSAGE = "Property '%s' was added with value: %s";
-    private static final String REMOVED_MESSAGE = "Property '%s' was removed";
-    private static final String COMPLEX_VALUE = "[complex value]";
-    private static final String STRING_VALUE = "'%s'";
+    private static final String MESSAGE_UPDATED = "Property '%s' was updated. From %s to %s";
+    private static final String MESSAGE_ADDED = "Property '%s' was added with value: %s";
+    private static final String MESSAGE_REMOVED = "Property '%s' was removed";
+    private static final String VALUE_COMPLEX = "[complex value]";
+    private static final String VALUE_STRING = "'%s'";
     private static final String NEW_LINE = "\n";
 
     public static String get(List<Map<String, Object>> data) {
@@ -23,13 +23,13 @@ public class PlainFormatter {
 
             switch (type.toString()) {
                 case Differ.STATUS_ADDED:
-                    result.append(String.format(ADDED_MESSAGE, key, value)).append(NEW_LINE);
+                    result.append(String.format(MESSAGE_ADDED, key, value)).append(NEW_LINE);
                     break;
                 case Differ.STATUS_REMOVED:
-                    result.append(String.format(REMOVED_MESSAGE, key)).append(NEW_LINE);
+                    result.append(String.format(MESSAGE_REMOVED, key)).append(NEW_LINE);
                     break;
                 case Differ.STATUS_CHANGED:
-                    result.append(String.format(UPDATE_MESSAGE, key, value, newValue)).append(NEW_LINE);
+                    result.append(String.format(MESSAGE_UPDATED, key, value, newValue)).append(NEW_LINE);
                     break;
                 default:
                     break;
@@ -45,9 +45,9 @@ public class PlainFormatter {
         } else if (item instanceof Boolean || item instanceof Number) {
             return item.toString();
         } else if (item instanceof String) {
-            return String.format(STRING_VALUE, item);
+            return String.format(VALUE_STRING, item);
         } else {
-            return COMPLEX_VALUE;
+            return VALUE_COMPLEX;
         }
     }
 }

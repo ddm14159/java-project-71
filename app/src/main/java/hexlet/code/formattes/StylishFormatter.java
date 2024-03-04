@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class StylishFormatter {
-    private static final String ADDED_INDENTATION = "  + ";
-    private static final String REMOVED_INDENTATION = "  - ";
-    private static final String UNCHANGED_INDENTATION = "    ";
+    private static final String INDENTATION_ADDED = "  + ";
+    private static final String INDENTATION_REMOVED = "  - ";
+    private static final String INDENTATION_UNCHANGED = "    ";
     private static final String NEW_LINE = "\n";
 
     public static String get(List<Map<String, Object>> data) {
@@ -24,17 +24,17 @@ public class StylishFormatter {
 
             switch (type.toString()) {
                 case Differ.STATUS_ADDED:
-                    result.append(NEW_LINE).append(ADDED_INDENTATION).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(INDENTATION_ADDED).append(key).append(": ").append(value);
                     break;
                 case Differ.STATUS_REMOVED:
-                    result.append(NEW_LINE).append(REMOVED_INDENTATION).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(INDENTATION_REMOVED).append(key).append(": ").append(value);
                     break;
                 case Differ.STATUS_CHANGED:
-                    result.append(NEW_LINE).append(REMOVED_INDENTATION).append(key).append(": ").append(value);
-                    result.append(NEW_LINE).append(ADDED_INDENTATION).append(key).append(": ").append(newValue);
+                    result.append(NEW_LINE).append(INDENTATION_REMOVED).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(INDENTATION_ADDED).append(key).append(": ").append(newValue);
                     break;
                 default:
-                    result.append(NEW_LINE).append(UNCHANGED_INDENTATION).append(key).append(": ").append(value);
+                    result.append(NEW_LINE).append(INDENTATION_UNCHANGED).append(key).append(": ").append(value);
             }
         }
 
