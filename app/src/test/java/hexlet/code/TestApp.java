@@ -40,6 +40,22 @@ public class TestApp {
         );
     }
 
+    @Test
+    void testDiffJson() throws Exception {
+        testDiff(
+                "src/test/resources/nested1.json",
+                "src/test/resources/nested2.json",
+                Formatter.FORMAT_JSON,
+                "src/test/resources/result_json"
+        );
+        testDiff(
+                "src/test/resources/nested1.yml",
+                "src/test/resources/nested2.yml",
+                Formatter.FORMAT_JSON,
+                "src/test/resources/result_json"
+        );
+    }
+
 
     private void testDiff(String filepath1, String filepath2, String format, String resultFilePath) throws Exception {
         var resultPath = Paths.get(resultFilePath);
