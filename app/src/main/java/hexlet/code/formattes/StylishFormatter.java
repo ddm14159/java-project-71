@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StylishFormatter {
+    private static final String INDENTATION_START = "{";
+    private static final String INDENTATION_END = "}";
     private static final String INDENTATION_ADDED = "  + ";
     private static final String INDENTATION_REMOVED = "  - ";
     private static final String INDENTATION_UNCHANGED = "    ";
@@ -14,7 +16,7 @@ public class StylishFormatter {
     public static String get(List<Map<String, Object>> data) {
         var result = new StringBuilder();
 
-        result.append("{");
+        result.append(INDENTATION_START);
 
         for (var item: data) {
             var key = item.get(Differ.INDEX_KEY);
@@ -38,7 +40,7 @@ public class StylishFormatter {
             }
         }
 
-        result.append("\n}");
+        result.append(NEW_LINE).append(INDENTATION_END);
 
         return result.toString();
     }
