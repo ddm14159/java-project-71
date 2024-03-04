@@ -11,14 +11,14 @@ public class TestApp {
     @Test
     void testDiffStylish() throws Exception {
         testDiff(
-                "src/test/resources/nested1.json",
-                "src/test/resources/nested2.json",
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
                 Formatter.FORMAT_STYLISH,
                 "src/test/resources/result_stylish"
         );
         testDiff(
-                "src/test/resources/nested1.yml",
-                "src/test/resources/nested2.yml",
+                "src/test/resources/file1.yml",
+                "src/test/resources/file2.yml",
                 Formatter.FORMAT_STYLISH,
                 "src/test/resources/result_stylish"
         );
@@ -27,14 +27,14 @@ public class TestApp {
     @Test
     void testDiffPlain() throws Exception {
         testDiff(
-                "src/test/resources/nested1.json",
-                "src/test/resources/nested2.json",
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
                 Formatter.FORMAT_PLAIN,
                 "src/test/resources/result_plain"
         );
         testDiff(
-                "src/test/resources/nested1.yml",
-                "src/test/resources/nested2.yml",
+                "src/test/resources/file1.yml",
+                "src/test/resources/file2.yml",
                 Formatter.FORMAT_PLAIN,
                 "src/test/resources/result_plain"
         );
@@ -43,14 +43,14 @@ public class TestApp {
     @Test
     void testDiffJson() throws Exception {
         testDiff(
-                "src/test/resources/nested1.json",
-                "src/test/resources/nested2.json",
+                "src/test/resources/file1.json",
+                "src/test/resources/file2.json",
                 Formatter.FORMAT_JSON,
                 "src/test/resources/result_json"
         );
         testDiff(
-                "src/test/resources/nested1.yml",
-                "src/test/resources/nested2.yml",
+                "src/test/resources/file1.yml",
+                "src/test/resources/file2.yml",
                 Formatter.FORMAT_JSON,
                 "src/test/resources/result_json"
         );
