@@ -36,6 +36,8 @@ public class PlainFormatter {
             }
         }
 
+        result.deleteCharAt(result.length() - 1);
+
         return result.toString();
     }
 
