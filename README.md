@@ -14,3 +14,6 @@ https://imgur.com/a/hmvJvCq
 
 #### Plain format
 https://imgur.com/a/dDjCxpB
+
+#### Json format
+https://imgur.com/a/PiCaJq1
