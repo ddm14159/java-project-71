@@ -2,7 +2,8 @@ package hexlet.code.formattes;
 
 import java.util.List;
 import java.util.Map;
-import hexlet.code.Differ;
+import hexlet.code.Difference;
+import hexlet.code.Status;
 
 public class PlainFormatter {
     private static final String MESSAGE_UPDATED = "Property '%s' was updated. From %s to %s";
@@ -16,20 +17,22 @@ public class PlainFormatter {
         var result = new StringBuilder();
 
         for (var item: data) {
-            var key = item.get(Differ.INDEX_KEY);
-            var type = item.get(Differ.INDEX_TYPE);
-            var value = stringify(item.get(Differ.INDEX_VALUE));
-            var newValue = stringify(item.getOrDefault(Differ.INDEX_NEW_VALUE, null));
+            var key = item.get(Difference.INDEX_KEY);
+            var status = (Status) item.get(Difference.INDEX_STATUS);
+            var value = status.getValue();
+            var newValue = status.getNewValue();
 
-            switch (type.toString()) {
-                case Differ.STATUS_ADDED:
-                    result.append(String.format(MESSAGE_ADDED, key, value)).append(NEW_LINE);
+            switch (status.getName()) {
+                case Status.ADDED:
+                    result.append(String.format(MESSAGE_ADDED, key, stringify(value))).append(NEW_LINE);
                     break;
-                case Differ.STATUS_REMOVED:
+                case Status.REMOVED:
                     result.append(String.format(MESSAGE_REMOVED, key)).append(NEW_LINE);
                     break;
-                case Differ.STATUS_CHANGED:
-                    result.append(String.format(MESSAGE_UPDATED, key, value, newValue)).append(NEW_LINE);
+                case Status.CHANGED:
+                    result
+                            .append(String.format(MESSAGE_UPDATED, key, stringify(value), stringify(newValue)))
+                            .append(NEW_LINE);
                     break;
                 default:
                     break;
@@ -42,14 +45,17 @@ public class PlainFormatter {
     }
 
     private static String stringify(Object item) {
-        if (item == "null") {
-            return item.toString();
-        } else if (item instanceof Boolean || item instanceof Number) {
-            return item.toString();
-        } else if (item instanceof String) {
+        if (item == null) {
+            return "null";
+        }
+
+        if (item instanceof String) {
             return String.format(VALUE_STRING, item);
-        } else {
+        }
+        if (item instanceof Map || item instanceof List) {
             return VALUE_COMPLEX;
         }
+
+        return item.toString();
     }
 }

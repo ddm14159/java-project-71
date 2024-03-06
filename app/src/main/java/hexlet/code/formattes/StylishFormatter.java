@@ -1,9 +1,9 @@
 package hexlet.code.formattes;
 
-import hexlet.code.Differ;
-
 import java.util.List;
 import java.util.Map;
+import hexlet.code.Difference;
+import hexlet.code.Status;
 
 public class StylishFormatter {
     private static final String INDENTATION_START = "{";
@@ -19,24 +19,43 @@ public class StylishFormatter {
         result.append(INDENTATION_START);
 
         for (var item: data) {
-            var key = item.get(Differ.INDEX_KEY);
-            var type = item.get(Differ.INDEX_TYPE);
-            var value = item.get(Differ.INDEX_VALUE);
-            var newValue = item.getOrDefault(Differ.INDEX_NEW_VALUE, null);
+            var key = item.get(Difference.INDEX_KEY);
+            var status = (Status) item.get(Difference.INDEX_STATUS);
 
-            switch (type.toString()) {
-                case Differ.STATUS_ADDED:
-                    result.append(NEW_LINE).append(INDENTATION_ADDED).append(key).append(": ").append(value);
+            switch (status.getName()) {
+                case Status.ADDED:
+                    result
+                            .append(NEW_LINE)
+                            .append(INDENTATION_ADDED)
+                            .append(key).append(": ")
+                            .append(status.getValue());
                     break;
-                case Differ.STATUS_REMOVED:
-                    result.append(NEW_LINE).append(INDENTATION_REMOVED).append(key).append(": ").append(value);
+                case Status.REMOVED:
+                    result
+                            .append(NEW_LINE)
+                            .append(INDENTATION_REMOVED)
+                            .append(key).append(": ")
+                            .append(status.getValue());
                     break;
-                case Differ.STATUS_CHANGED:
-                    result.append(NEW_LINE).append(INDENTATION_REMOVED).append(key).append(": ").append(value);
-                    result.append(NEW_LINE).append(INDENTATION_ADDED).append(key).append(": ").append(newValue);
+                case Status.CHANGED:
+                    result
+                            .append(NEW_LINE)
+                            .append(INDENTATION_REMOVED)
+                            .append(key)
+                            .append(": ")
+                            .append(status.getValue());
+                    result
+                            .append(NEW_LINE)
+                            .append(INDENTATION_ADDED)
+                            .append(key).append(": ")
+                            .append(status.getNewValue());
                     break;
                 default:
-                    result.append(NEW_LINE).append(INDENTATION_UNCHANGED).append(key).append(": ").append(value);
+                    result
+                            .append(NEW_LINE)
+                            .append(INDENTATION_UNCHANGED)
+                            .append(key).append(": ")
+                            .append(status.getValue());
             }
         }
 

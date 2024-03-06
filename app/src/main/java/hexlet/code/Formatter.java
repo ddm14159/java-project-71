@@ -15,9 +15,10 @@ public class Formatter {
 
     public static String format(List<Map<String, Object>> data, String format) throws JsonProcessingException {
         return switch (format) {
+            case FORMAT_STYLISH -> StylishFormatter.get(data);
             case FORMAT_PLAIN -> PlainFormatter.get(data);
             case FORMAT_JSON -> JsonFormatter.get(data);
-            default -> StylishFormatter.get(data);
+            default -> throw new IllegalArgumentException("Output format is invalid");
         };
     }
 }
