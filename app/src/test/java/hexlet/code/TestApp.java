@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestApp {
+public final class TestApp {
 
     private static String resultJson;
     private static String resultPlain;
