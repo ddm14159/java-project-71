@@ -2,7 +2,6 @@ package hexlet.code.formattes;
 
 import java.util.List;
 import java.util.Map;
-import hexlet.code.Difference;
 import hexlet.code.Status;
 
 public class PlainFormatter {
@@ -13,12 +12,12 @@ public class PlainFormatter {
     private static final String VALUE_STRING = "'%s'";
     private static final String NEW_LINE = "\n";
 
-    public static String get(List<Map<String, Object>> data) {
+    public static String get(Map<String, Object> data) {
         var result = new StringBuilder();
 
-        for (var item: data) {
-            var key = item.get(Difference.INDEX_KEY);
-            var status = (Status) item.get(Difference.INDEX_STATUS);
+        for (var item: data.entrySet()) {
+            var key = item.getKey();
+            var status = (Status) item.getValue();
             var value = status.getValue();
             var newValue = status.getNewValue();
 

@@ -3,8 +3,6 @@ package hexlet.code;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class Parser {
@@ -12,35 +10,21 @@ public class Parser {
     private static final String TYPE_YAML = "yaml";
     private static final String TYPE_YML = "yml";
 
+    private static Map<String, Object> parseYaml(String content) throws Exception  {
+        ObjectMapper mapper = new YAMLMapper();
+        return mapper.readValue(content, new TypeReference<>() { });
+    }
+
+    private static Map<String, Object> parseJson(String content) throws Exception  {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, new TypeReference<>() { });
+    }
+
     public static Map<String, Object> parse(String data, String format) throws Exception {
-        var mapper = getMapper(format);
-
-        if (mapper == null) {
-            throw new UnsupportedOperationException("Given data format is not supported: " + format);
-        }
-
-        return mapper.readValue(data, new TypeReference<>() { });
+        return switch (format) {
+            case TYPE_YAML, TYPE_YML -> parseYaml(data);
+            case TYPE_JSON -> parseJson(data);
+            default -> throw new Exception("Given data format is not supported: '" + format + "'");
+        };
     }
-
-    private static ObjectMapper getMapper(String format) {
-
-        if (getJsonExtensions().contains(format)) {
-            return new ObjectMapper();
-        }
-
-        if (getYmlExtensions().contains(format)) {
-            return new YAMLMapper();
-        }
-
-        return null;
-    }
-
-    private static List<String> getJsonExtensions() {
-        return new ArrayList<>(List.of(TYPE_JSON));
-    }
-
-    private static List<String> getYmlExtensions() {
-        return new ArrayList<>(List.of(TYPE_YML, TYPE_YAML));
-    }
-
 }

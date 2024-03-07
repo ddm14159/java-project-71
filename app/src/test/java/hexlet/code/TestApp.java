@@ -1,8 +1,8 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,76 +33,15 @@ public class TestApp {
         resultStylish = readFixture("result_stylish.txt");
     }
 
-    private void testDiff(String filepath1, String filepath2, String format, String result) throws Exception {
-        var actual = Differ.generate(filepath1, filepath2, format);
+    @ParameterizedTest
+    @ValueSource(strings = {"json", "yml"})
+    public void generateTest(String format) throws Exception {
+        String filePath1 = getFixturePath("file1." + format).toString();
+        String filePath2 = getFixturePath("file2." + format).toString();
 
-        assertThat(actual).isEqualTo(result);
-    }
-
-    private void testDiff(String filepath1, String filepath2, String result) throws Exception {
-        var actual = Differ.generate(filepath1, filepath2);
-
-        assertThat(actual).isEqualTo(result);
-    }
-
-    @Test
-    void testDiffStylish() throws Exception {
-        testDiff(
-                FIXTURE_PATH + "file1.json",
-                FIXTURE_PATH + "file2.json",
-                Formatter.FORMAT_STYLISH,
-                resultStylish
-        );
-        testDiff(
-                FIXTURE_PATH + "file1.yml",
-                FIXTURE_PATH + "file2.yml",
-                Formatter.FORMAT_STYLISH,
-                resultStylish
-        );
-    }
-    @Test
-    void testDiffPlain() throws Exception {
-        testDiff(
-                FIXTURE_PATH + "file1.json",
-                FIXTURE_PATH + "file2.json",
-                Formatter.FORMAT_PLAIN,
-                resultPlain
-        );
-        testDiff(
-                FIXTURE_PATH + "file1.yml",
-                FIXTURE_PATH + "file2.yml",
-                Formatter.FORMAT_PLAIN,
-                resultPlain
-        );
-    }
-
-    @Test
-    void testDiffJson() throws Exception {
-        testDiff(
-                FIXTURE_PATH + "file1.json",
-                FIXTURE_PATH + "file2.json",
-                Formatter.FORMAT_JSON,
-                resultJson
-        );
-        testDiff(
-                FIXTURE_PATH + "file1.yml",
-                FIXTURE_PATH + "file2.yml",
-                Formatter.FORMAT_JSON,
-                resultJson
-        );
-    }
-
-    @Test
-    void testDiffDefault() throws Exception {
-        testDiff(
-                FIXTURE_PATH + "file1.json",
-                FIXTURE_PATH + "file2.json",
-                resultStylish
-        );
-        testDiff(
-                FIXTURE_PATH + "file1.yml",
-                FIXTURE_PATH + "file2.yml",
-                resultStylish
-        );
+        assertThat(Differ.generate(filePath1, filePath2)).isEqualTo(resultStylish);
+        assertThat(Differ.generate(filePath1, filePath2, Formatter.FORMAT_STYLISH)).isEqualTo(resultStylish);
+        assertThat(Differ.generate(filePath1, filePath2, Formatter.FORMAT_PLAIN)).isEqualTo(resultPlain);
+        assertThat(Differ.generate(filePath1, filePath2, Formatter.FORMAT_JSON)).isEqualTo(resultJson);
     }
 }

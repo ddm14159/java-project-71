@@ -1,8 +1,6 @@
 package hexlet.code.formattes;
 
-import java.util.List;
 import java.util.Map;
-import hexlet.code.Difference;
 import hexlet.code.Status;
 
 public class StylishFormatter {
@@ -13,14 +11,14 @@ public class StylishFormatter {
     private static final String INDENTATION_UNCHANGED = "    ";
     private static final String NEW_LINE = "\n";
 
-    public static String get(List<Map<String, Object>> data) {
+    public static String get(Map<String, Object> data) {
         var result = new StringBuilder();
 
         result.append(INDENTATION_START);
 
-        for (var item: data) {
-            var key = item.get(Difference.INDEX_KEY);
-            var status = (Status) item.get(Difference.INDEX_STATUS);
+        for (var item: data.entrySet()) {
+            var key = item.getKey();
+            var status = (Status) item.getValue();
 
             switch (status.getName()) {
                 case Status.ADDED:
