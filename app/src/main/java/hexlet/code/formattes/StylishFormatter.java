@@ -11,7 +11,7 @@ public class StylishFormatter {
     private static final String INDENTATION_UNCHANGED = "    ";
     private static final String NEW_LINE = "\n";
 
-    public static String get(Map<String, Object> data) {
+    public static String get(Map<String, Object> data) throws Exception {
         var result = new StringBuilder();
 
         result.append(INDENTATION_START);
@@ -48,12 +48,15 @@ public class StylishFormatter {
                             .append(key).append(": ")
                             .append(status.getNewValue());
                     break;
-                default:
+                case Status.UNCHANGED:
                     result
                             .append(NEW_LINE)
                             .append(INDENTATION_UNCHANGED)
                             .append(key).append(": ")
                             .append(status.getValue());
+                    break;
+                default:
+                    throw new Exception("Given data format is not supported: '" + status.getName() + "'");
             }
         }
 

@@ -25,13 +25,22 @@ public final class App implements Callable<Integer> {
             description = "output format [default: " + Formatter.FORMAT_STYLISH + "]"
     )
     private String format;
+    private static final int SUCCESS_EXIT_CODE = 0;
+    private static final int ERROR_EXIT_CODE = 1;
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
-    @Override public Integer call() throws Exception {
-        System.out.println(Differ.generate(this.filepath1, this.filepath2, this.format));
-        return null;
+    @Override public Integer call() {
+        try {
+            String formattedDiff = Differ.generate(this.filepath1, this.filepath2, this.format);
+            System.out.println(formattedDiff);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return ERROR_EXIT_CODE;
+        }
+
+        return SUCCESS_EXIT_CODE;
     }
 }

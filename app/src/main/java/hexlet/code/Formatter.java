@@ -11,7 +11,7 @@ public class Formatter {
     public static final String FORMAT_PLAIN = "plain";
     public static final String FORMAT_JSON = "json";
 
-    public static String format(Map<String, Object> data, String format) throws JsonProcessingException {
+    public static String format(Map<String, Object> data, String format) throws Exception {
         return switch (format) {
             case FORMAT_STYLISH -> StylishFormatter.get(data);
             case FORMAT_PLAIN -> PlainFormatter.get(data);
